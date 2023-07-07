@@ -25,9 +25,6 @@ public class Customer {
 	}
 	public void setCname(String cname) {
 		this.cname = cname;
-	}
-	
-	
-	
+	}			
 
 }

@@ -7,10 +7,11 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class CustomerInfo {
-	
+	private int login_id;
+	private int login_pwd;
+	private String login_name;
 	
 	public static void main(String[] args) {
-		
 		//HotelFunction join, login 등의 method 모음
 		CustomerFunction CF = new CustomerFunction();
 		
@@ -19,12 +20,13 @@ public class CustomerInfo {
 		
 		//while 구문에 필요한 변수들 = 1.회원가입 2.로그인 9.종료 등에 필요한 변수
 		Scanner sc = new Scanner(System.in);	
+		
 		int id; int pwd; String name;
-		int sel = 9; 
-	
+		int sel = 9; boolean next_page = false;
+
 		//고객관리 페이지 (회원가입 , 로그인 , 탈퇴 )
-		while(true) {
-			System.out.println("1.회원가입 2.로그인 9.종료");
+		while(!next_page) {
+			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 9.종료");
 			sel = Integer.parseInt(sc.nextLine());
 			if (sel == 9) {
 				break;
@@ -41,6 +43,7 @@ public class CustomerInfo {
 				CO.setCid(id);
 				CO.setCpw(pwd);
 				CO.setCname(name);
+				
 				CF.join(CO);
 				break;	
 			
@@ -51,21 +54,28 @@ public class CustomerInfo {
 				System.out.print("pwd");
 				pwd = Integer.parseInt(sc.nextLine());
 				
-				CF.login(id, pwd);
+				next_page =CF.login(id, pwd);
 				break;
-				
 			case 3:
+				System.out.print("id");
+				id = Integer.parseInt(sc.nextLine());
+				System.out.print("pwd");
+				pwd = Integer.parseInt(sc.nextLine());
+				
+				CO.setCid(id);
+				CO.setCpw(pwd);
+				
+				CF.terminate(CO);
 				break;
+			default :
+				return;
 			}
-			
+			if (next_page ==true) {
+				ReservationInfo RI = new ReservationInfo();
+			}
 			
 		}
 		
-		
-		
-		
-		
-	
 	}
 
 }
