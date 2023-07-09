@@ -23,6 +23,22 @@ public class RevervationMenu {
 		} catch (Exception ex) { System.out.println("Error" + ex);}
 	}// 기본생성자 DB연결 
 	
+	public boolean isDuplicated(int roomNumber) {//예약 중복 체크
+		try {
+			msg = "select * from reservation where roomnum= "+ roomNumber;
+			ST = CN.createStatement();
+			RS = ST.executeQuery(msg);
+			if(RS.next()) {
+				return true;
+			}else {
+				return false;
+			}
+		}catch(Exception ex)  { System.out.println("Error" + ex);}
+		return false;
+	}//isDuplicated END
+	
+	
+	
 	public void checkIn(Reservation RV) {// 입실
 		try {
 			msg = "insert into reservation values(?,?,?,?)";

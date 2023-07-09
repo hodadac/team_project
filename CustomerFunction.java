@@ -43,9 +43,9 @@ public class CustomerFunction {
 	
 	//로그인
 	public boolean login(int id, int pwd) {
-		int check = customerCheck(id,pwd);
+		boolean check = customerCheck(id,pwd);
 	
-		if (check == 1) {
+		if (check) {
 			flag = true;
 			System.out.println("로그인 성공");
 		}else {
@@ -56,18 +56,20 @@ public class CustomerFunction {
 	}
 	
 	//로그인시에 체크
-	public int customerCheck(int id ,int pwd) {
+	public boolean customerCheck(int id ,int pwd) {
 		int count = 0;
 		try {
-			msg = "select count(*) as cnt from customer where id ="+ id + " and pwd ="+ pwd;
+			msg = "select * from customer where id ="+ id + " and pwd ="+ pwd;
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
-			while(RS.next()) {
-				count =RS.getInt("cnt");
+			if(RS.next()) {
+				return true;
+			}else {
+				return false;
 			}
 		}catch(Exception e) {System.out.println("Error gusestCountAll");}
 		
-		return count;
+		return false;
 	}// guestCountAll()
 	
 	
@@ -91,6 +93,7 @@ public class CustomerFunction {
 	
 	// user 정보가 삭제되면 reservation 테이블에서 지워지게 한다.
 	// 동기화 생각해보기 reservation , customer
+	// 로그인 실패
 	
 	
 	

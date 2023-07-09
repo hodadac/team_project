@@ -32,6 +32,11 @@ public class ReservationInfo {
 			case 1:
 				System.out.print("예약하실 호수를 입력하세요 >>> ");
 				int roomNumber = Integer.parseInt(sc.nextLine());
+				while(rvm.isDuplicated(roomNumber)) {//중복 여부 체크실행
+					System.out.println("이미 예약된 방입니다! 다시 입력해주세요");
+					System.out.print("예약하실 호수를 다시 입력하세요 >>> ");
+					roomNumber = Integer.parseInt(sc.nextLine());
+				}
 				System.out.print("예약하실 분의 아이디를 입력하세요 >>> ");
 				int userId = Integer.parseInt(sc.nextLine());
 				System.out.print("예약하실 시작 날짜를 입력하세요 ex) 2023-07-07 >>> ");
@@ -39,12 +44,12 @@ public class ReservationInfo {
 				System.out.print("예약하실 끝 날짜를 입력하세요 ex) 2023-07-10 >>> ");
 				String endDate = sc.nextLine();
 				
-				Reservation checkInRv = new Reservation();
-				checkInRv.setRoom_num(roomNumber);
-				checkInRv.setId(userId);
-				checkInRv.setStart_date(startDate);
-				checkInRv.setEnd_date(endDate);
-				rvm.checkIn(checkInRv);
+				Reservation checkInRvo = new Reservation();
+				checkInRvo.setRoom_num(roomNumber);
+				checkInRvo.setId(userId);
+				checkInRvo.setStart_date(startDate);
+				checkInRvo.setEnd_date(endDate);
+				rvm.checkIn(checkInRvo);
 				break;
 			case 2:
 				System.out.print("예약하신 호수를 입력하세요 >>> ");
