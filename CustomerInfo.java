@@ -14,6 +14,7 @@ public class CustomerInfo {
 	public static void main(String[] args) {
 		//HotelFunction join, login 등의 method 모음
 		CustomerFunction CF = new CustomerFunction();
+		CustomerInfo CI = new CustomerInfo();
 		
 		//Customer class 호출 = gettersetter 호출
 		Customer CO = new Customer();
@@ -53,9 +54,11 @@ public class CustomerInfo {
 				id = Integer.parseInt(sc.nextLine());
 				System.out.print("pwd");
 				pwd = Integer.parseInt(sc.nextLine());
-				
+				CI.login_id = id;
+				CI.login_pwd = pwd;
 				next_page =CF.login(id, pwd);
 				break;
+				
 			case 3:
 				System.out.print("id");
 				id = Integer.parseInt(sc.nextLine());
@@ -67,11 +70,12 @@ public class CustomerInfo {
 				
 				CF.terminate(CO);
 				break;
+				
 			default :
 				return;
 			}
 			if (next_page ==true) {
-				ReservationInfo RI = new ReservationInfo();
+				ReservationInfo RI = new ReservationInfo( CI.login_id, CI.login_pwd);
 			}
 			
 		}

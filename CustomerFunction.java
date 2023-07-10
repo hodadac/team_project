@@ -55,6 +55,7 @@ public class CustomerFunction {
 		return flag;
 	}
 	
+	
 	//로그인시에 체크
 	public boolean customerCheck(int id ,int pwd) {
 		int count = 0;

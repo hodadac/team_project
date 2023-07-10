@@ -8,8 +8,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class ReservationInfo {
+	private int login_user_id;
+	private int login_user_pwd;
 	
-	public ReservationInfo() {
+	public ReservationInfo(int userid, int userpwd) {
+		this.login_user_id = userid;
+		this.login_user_pwd = userpwd;
 		
 		//HotelFunction join, login 등의 method 모음
 		RevervationMenu rvm = new RevervationMenu();
@@ -23,7 +27,7 @@ public class ReservationInfo {
 		
  		//고객관리 페이지 (회원가입 , 로그인 , 탈퇴 )
 		while(true) {
-			System.out.println("1.예약 2.퇴실 3.조회 9.종료");
+			System.out.println("1.예약 2.퇴실 3.조회  4.유저 예약 현황 9.종료");
 			sel = Integer.parseInt(sc.nextLine());
 			if (sel == 9) {
 				break;
@@ -37,8 +41,7 @@ public class ReservationInfo {
 					System.out.print("예약하실 호수를 다시 입력하세요 >>> ");
 					roomNumber = Integer.parseInt(sc.nextLine());
 				}
-				System.out.print("예약하실 분의 아이디를 입력하세요 >>> ");
-				int userId = Integer.parseInt(sc.nextLine());
+				int userId = login_user_id;
 				System.out.print("예약하실 시작 날짜를 입력하세요 ex) 2023-07-07 >>> ");
 				String startDate = sc.nextLine(); 
 				System.out.print("예약하실 끝 날짜를 입력하세요 ex) 2023-07-10 >>> ");
@@ -51,12 +54,14 @@ public class ReservationInfo {
 				checkInRvo.setEnd_date(endDate);
 				rvm.checkIn(checkInRvo);
 				break;
+			
 			case 2:
 				System.out.print("예약하신 호수를 입력하세요 >>> ");
 				int reservedRoomNumber = sc.nextInt();
 				sc.nextLine();
 				rvm.checkOut(reservedRoomNumber);
 				break;
+			
 			case 3:
 
 				ArrayList<Reservation> reservationList = rvm.reservationStatus();
@@ -67,6 +72,10 @@ public class ReservationInfo {
 				}// for END
 				System.out.println();
 				break;
+			case 4:
+				rvm.userRoom(login_user_id);
+				break;
+			
 			}
 			
 			

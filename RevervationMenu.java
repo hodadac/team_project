@@ -92,10 +92,25 @@ public class RevervationMenu {
 		return reservationList;
 	}// reservationStatus END
 	
-	public void totalResevationList() {
-		
+	// 윤영님, 나리님 id 예약조회
+	public void userRoom(int find) {
+		try {
+			int id = find;
+			msg = "select * from reservation where id ="+id;
+			ST = CN.createStatement();
+			RS = ST.executeQuery(msg);
+			
+			System.out.println("아이디\t호실\t입실날짜\t퇴실날짜");
+			while(RS.next() ==true) {
+				int num =  RS.getInt("roomnum");
+				String sDate = RS.getString("start_Date");
+				String eDate = RS.getString("end_Date");
+				System.out.println(id+"\t"+num+"\t"+sDate+"\t"+eDate);
+			}
+			
+		}catch(Exception ex) {System.out.println("error");}
 	}
-
+	
 	
 }
 
