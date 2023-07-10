@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Date;
+import java.util.HashMap;
 
 public class RevervationMenu {
 	private String msg;
@@ -22,6 +23,7 @@ public class RevervationMenu {
 			CN = HotelDB.dbConnection();
 		} catch (Exception ex) { System.out.println("Error" + ex);}
 	}// 기본생성자 DB연결 
+	
 	
 	public boolean isDuplicated(int roomNumber) {//예약 중복 체크
 		try {
@@ -39,7 +41,7 @@ public class RevervationMenu {
 	
 	
 	
-	public void checkIn(Reservation RV) {// 입실
+	public void checkIn(Reservation RV) {//입실
 		try {
 			msg = "insert into reservation values(?,?,?,?)";
 			PST = CN.prepareStatement(msg);
@@ -56,7 +58,8 @@ public class RevervationMenu {
 		catch(Exception ex){ System.out.println("Error" + ex);}
 	}// checkIn END
 	
-	public void checkOut(int reservedRoomNumber) { // 퇴실
+	
+	public void checkOut(int reservedRoomNumber) {//퇴실
 		try {
 			msg = "delete from reservation where roomnum =?";
 			PST = CN.prepareStatement(msg);
@@ -71,7 +74,7 @@ public class RevervationMenu {
 		catch(Exception ex){ System.out.println("Error" + ex);}
 	}// checkOut END
 	
-	public ArrayList<Reservation> reservationStatus() {//예약조회
+	public ArrayList<Reservation> reservationStatus() {//전체 예약자, 예약 방 조회
 		ArrayList<Reservation> reservationList = new ArrayList<>();
 		try {
 			msg = "select * from reservation order by roomnum";
@@ -93,7 +96,7 @@ public class RevervationMenu {
 	}// reservationStatus END
 	
 	// 윤영님, 나리님 id 예약조회
-	public void userRoom(int find) {
+	public void userRoom(int find) {// 예약자 id를 통한 조회
 		try {
 			int id = find;
 			msg = "select * from reservation where id ="+id;
@@ -111,6 +114,30 @@ public class RevervationMenu {
 		}catch(Exception ex) {System.out.println("error");}
 	}
 	
+	public ArrayList<Room> Search() {//예약되지 않은 방 조회
+		ArrayList<Room> alist = new ArrayList<>();
+		try {
+			//윤영님 작성 코드
+			msg ="select * from room where roomnum not in (select roomnum from reservation) order by roomnum";
+			ST = CN.createStatement();
+			RS = ST.executeQuery(msg);
+			
+			while(RS.next()) {
+				Room RO = new Room();
+				int roomnum = RS.getInt("roomnum");
+				int price = RS.getInt("price");
+				String type = RS.getString("type");
+				RO.setRoomnum(roomnum);
+				RO.setPrice(price);
+				RO.setType(type);
+				alist.add(RO);
+			}
+			
+		}catch(Exception ex) {System.out.println("Errsor"+ex);}  
+		
+		return alist;
+		
+	}
 	
 }
 

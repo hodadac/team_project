@@ -21,7 +21,7 @@ public class CustomerFunction {
 		CN = HotelDB.dbConnection();
 	}
 	
-	public void join(Customer CO) {
+	public void join(Customer CO) {//회원가입
 		try {
 			msg = "insert into customer values(?,?,?)";
 			PST = CN.prepareStatement(msg);
@@ -37,12 +37,12 @@ public class CustomerFunction {
 			}
 			
 		}catch(Exception ex) {System.out.println("Error"+ex);}
-	}
+	}//join end
 	
 
 	
-	//로그인
-	public boolean login(int id, int pwd) {
+	
+	public boolean login(int id, int pwd) {//로그인 성공 시 flag =true 아니면 false
 		boolean check = customerCheck(id,pwd);
 	
 		if (check) {
@@ -53,11 +53,11 @@ public class CustomerFunction {
 			System.out.println("로그인 실패");
 		}
 		return flag;
-	}
+	}//login end
 	
 	
-	//로그인시에 체크
-	public boolean customerCheck(int id ,int pwd) {
+	
+	public boolean customerCheck(int id ,int pwd) {//로그인이 id와 pwd가 일치하는 지 고객테이블에서 검색
 		int count = 0;
 		try {
 			msg = "select * from customer where id ="+ id + " and pwd ="+ pwd;
@@ -74,7 +74,9 @@ public class CustomerFunction {
 	}// guestCountAll()
 	
 	
-	public void terminate(Customer CO) {
+	
+	// user 정보가 삭제되면 reservation 테이블에서 지워지게 한다. -> sql foreign key 제약조건 on delete cascade 사용s
+	public void terminate(Customer CO) {//제거
 		try {
 			msg = "delete from customer where id = ? and pwd = ?";
 			PST = CN.prepareStatement(msg);
@@ -89,46 +91,9 @@ public class CustomerFunction {
 			}
 			
 		}catch(Exception ex) {System.out.println("Error"+ex);}
-	}
-	
-	
-	// user 정보가 삭제되면 reservation 테이블에서 지워지게 한다.
-	// 동기화 생각해보기 reservation , customer
-	// 로그인 실패
+	}//terminate end 
 	
 	
 	
-	
-	
-	
-	
-	
-	
-//	public ArrayList<Customer> Search() {//조회 고개정보 조회 필요없음
-//	ArrayList<Customer> alist = new ArrayList<>();
-//	try {
-//
-//		msg ="select * from Cumtomer ";
-//		ST = CN.createStatement();
-//		RS = ST.executeQuery(msg);
-//		
-//		while(RS.next()) {
-//			Customer  CO = new Customer();
-//			
-//			int id = RS.getInt("cid");
-//			int pw = RS.getInt("cpw");
-//			String name = RS.getString("name");
-//			
-//			CO.setCid(id);;
-//			CO.setCpw(pw);
-//			CO.setCname(name);
-//
-//			alist.add(CO);
-//			
-//		}
-//		
-//	}catch(Exception ex) {System.out.println("Errsor"+ex);}  
-//	return alist;
-//}
 
 }

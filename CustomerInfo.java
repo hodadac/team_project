@@ -5,6 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerInfo {
 	private int login_id;
@@ -27,13 +31,14 @@ public class CustomerInfo {
 
 		//고객관리 페이지 (회원가입 , 로그인 , 탈퇴 )
 		while(!next_page) {
-			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 9.종료");
+			System.out.println("1.회원가입 2.로그인 3.회원탈퇴  9.종료");
 			sel = Integer.parseInt(sc.nextLine());
 			if (sel == 9) {
 				break;
 			}
 			switch (sel) {
 			case 1:
+				//회원가입
 				System.out.print("id");
 				id = Integer.parseInt(sc.nextLine());
 				System.out.print("pwd");
@@ -50,6 +55,7 @@ public class CustomerInfo {
 			
 			
 			case 2:
+				//로그인
 				System.out.print("id");
 				id = Integer.parseInt(sc.nextLine());
 				System.out.print("pwd");
@@ -60,6 +66,7 @@ public class CustomerInfo {
 				break;
 				
 			case 3:
+				//탈퇴
 				System.out.print("id");
 				id = Integer.parseInt(sc.nextLine());
 				System.out.print("pwd");
@@ -70,10 +77,13 @@ public class CustomerInfo {
 				
 				CF.terminate(CO);
 				break;
-				
+			
 			default :
 				return;
 			}
+			
+			//로그인 성공 시 예약 페이지로 넘어감
+			//로그인 한 고객의 id와 password가 유지됨
 			if (next_page ==true) {
 				ReservationInfo RI = new ReservationInfo( CI.login_id, CI.login_pwd);
 			}

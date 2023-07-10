@@ -12,7 +12,6 @@ public class HotelDB {
 			String user = "system";
 			String password = "1234"; 
 		  CN = DriverManager.getConnection(url, user, password);
-		  System.out.println("db 연결성공");
 		 }catch(Exception ex){ System.out.println("db서버연결실패 " + ex.toString()); }
 		return CN;
 	}//end
