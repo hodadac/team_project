@@ -23,7 +23,7 @@ public class CustomerFunction {
 	
 	public void join(Customer CO) {//회원가입
 		try {
-			msg = "insert into customer values(?,?,?)";
+			msg = "insert into customer values(?,?,?,0)";
 			PST = CN.prepareStatement(msg);
 				PST.setInt(1, CO.getCid());
 				PST.setInt(2, CO.getCpw());

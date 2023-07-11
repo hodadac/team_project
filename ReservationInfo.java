@@ -80,9 +80,9 @@ public class ReservationInfo {
 			case 3:
 				//전체조회
 				ArrayList<Reservation> reservationList = rvm.reservationStatus();
-				System.out.println("ROOMNUM\tID\tSTART_DATE\tEND_DATE");
+				System.out.println("ROOMNUM\tID\tNAME\tSTART_DATE\tEND_DATE");
 				for(Reservation listRvo : reservationList ) {
-					System.out.print(listRvo.getRoom_num()+"\t"+listRvo.getId()+"\t");
+					System.out.print(listRvo.getRoom_num()+"\t"+listRvo.getId()+"\t"+listRvo.getName()+"\t");
 					System.out.println(listRvo.getStart_date()+"\t"+listRvo.getEnd_date());
 				}// for END
 				System.out.println();

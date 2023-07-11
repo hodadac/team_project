@@ -81,13 +81,14 @@ public class RevervationMenu {
 	public ArrayList<Reservation> reservationStatus() {//전체 예약자, 예약 방 조회
 		ArrayList<Reservation> reservationList = new ArrayList<>();
 		try {
-			msg = "select * from reservation order by roomnum";
+			msg = "select roomnum, id, name, start_date, end_date from customer inner join reservation  using(id) ";
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
 			while(RS.next()==true) {
 				Reservation RV = new Reservation();
 				RV.setRoom_num(RS.getInt("roomnum"));
 				RV.setId(RS.getInt("id"));
+				RV.setName(RS.getString("name"));
 				RV.setStart_date(RS.getString("start_date"));
 				RV.setEnd_date(RS.getString("end_date"));
 	
@@ -103,16 +104,17 @@ public class RevervationMenu {
 	public void userRoom(int find) {// 예약자 id를 통한 조회
 		try {
 			int id = find;
-			msg = "select * from reservation where id ="+id;
+			msg =  "select roomnum, id, name, start_date, end_date from customer inner join reservation  using(id) where id ="+id;
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
 			
-			System.out.println("아이디\t호실\t입실날짜\t퇴실날짜");
+			System.out.println("아이디\t이름\t호실\t입실날짜\t퇴실날짜");
 			while(RS.next() ==true) {
 				int num =  RS.getInt("roomnum");
+				String name = RS.getString("name");
 				String sDate = RS.getString("start_Date");
 				String eDate = RS.getString("end_Date");
-				System.out.println(id+"\t"+num+"\t"+sDate+"\t"+eDate);
+				System.out.println(id+"\t"+name+"\t"+num+"\t"+sDate+"\t"+eDate);
 			}
 			
 		}catch(Exception ex) {System.out.println("error");}

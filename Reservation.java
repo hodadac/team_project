@@ -12,7 +12,7 @@ public class Reservation {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
+	}	
 	
 	public int getRoom_num() {
 		return room_num;
