@@ -1,0 +1,44 @@
+drop table customer;
+drop table room;
+drop table reservation;
+
+create table customer(
+id number(4) primary key,
+pwd number(4) not null,
+name varchar2(4) not null,
+points number(5)
+);
+
+insert into customer values ( 1100, 1001, 'kim', 0);
+insert into customer values ( 2200, 2002, 'han',0);
+insert into customer values ( 3300, 3003, 'jin',0);
+
+create table room(
+roomnum number(3) primary key,
+price number(10),
+type varchar2(1)
+);
+
+insert into room values ( 101, 3000, 'a');
+insert into room values ( 102, 5000, 'b');
+insert into room values ( 103, 7000, 'c');
+insert into room values ( 104, 5000, 'b');
+insert into room values ( 105, 7000, 'c');
+insert into room values ( 201, 3000, 'a');
+insert into room values ( 202, 5000, 'b');
+insert into room values ( 203, 7000, 'c');
+insert into room values ( 204, 5000, 'b');
+insert into room values ( 205, 7000, 'c');
+
+
+create table reservation(
+roomnum number(3),
+id number(4),
+start_date varchar2(12),
+end_date varchar2(12)
+);
+
+insert into reservation values ( 101,1100,'2023-06-05','2023-06-07');
+insert into reservation values ( 102, 2200,'2023-07-01','2023-07-05');
+
+alter table reservation add foreign key (id) references customer (id) on delete cascade;
