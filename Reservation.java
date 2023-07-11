@@ -5,8 +5,14 @@ public class Reservation {
 	private int id;
 	private String start_date;
 	private String end_date;
+	private String name;
 	
-	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public int getRoom_num() {
 		return room_num;
