@@ -19,19 +19,24 @@ public class PayInfo {
 		this.userid = userid;
 		this.roomnum = roomnum;
 		int sel=9;
-		while (true) {
+		boolean payisEnd = false;
+		while (!payisEnd) {
 			System.out.println("1.결재 2.포인트 사용 결재 9.결재 취소");
 			sel = Integer.parseInt(sc.nextLine());
 			if(sel==9) {
+				PF.PayCancle(userid, roomnum);
 				break;
 			}
 			switch (sel) {
 			case 1:
-				PF.PayPrice(roomnum);
+				PF.bonus(userid, roomnum);
+				payisEnd = true;
 				break;
 			case 2:
+				
 				break;
 			default:
+				PF.PayCancle(userid, roomnum);
 				break;
 			}
 			

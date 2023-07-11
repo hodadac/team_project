@@ -25,7 +25,6 @@ public class RevervationMenu {
 		} catch (Exception ex) { System.out.println("Error" + ex);}
 	}// 기본생성자 DB연결 
 	
-	
 	public boolean isDuplicated(int roomNumber) {//예약 중복 체크
 		try {
 			msg = "select * from reservation where roomnum= "+ roomNumber;
@@ -142,6 +141,27 @@ public class RevervationMenu {
 		
 		return alist;
 		
+	}
+	
+	public void EmptyRoom() {
+		System.out.println("이코노미 공실");
+		for (Room r: Search()) {
+			if(r.getType().equals("a"))
+			System.out.print(r.getRoomnum()+ " ");
+		}
+		System.out.println("\n");
+		System.out.println("비지니스 공실");
+		for (Room r: Search()) {
+			if(r.getType().equals("b"))
+			System.out.print(r.getRoomnum()+ " ");
+		}
+		System.out.println("\n");
+		System.out.println("퍼스트 공실");
+		for (Room r: Search()) {
+			if(r.getType().equals("c"))
+			System.out.print(r.getRoomnum()+ " ");
+		}
+		System.out.println("\n");
 	}
 	
 }

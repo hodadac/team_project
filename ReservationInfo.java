@@ -18,6 +18,7 @@ public class ReservationInfo {
 		this.login_user_id = userid;
 		this.login_user_pwd = userpwd;
 		boolean next_page = false;
+		boolean ResisEnd = false;
 		
 		//Revervation 오타임
 		RevervationMenu rvm = new RevervationMenu();
@@ -30,34 +31,17 @@ public class ReservationInfo {
 		int sel = 9;
 		
  		//호텔 예약 페이지
-		while(!next_page) {
+		while(!ResisEnd) {
 			System.out.println("1.예약 2.퇴실 3.조회  4.유저 예약 현황 9.종료");
 			sel = Integer.parseInt(sc.nextLine());
 			if (sel == 9) {
-				break;
+				ResisEnd = true;
 			}
 			switch (sel) {
 			case 1:		
-				// room테이블 타입에 따른 공실 보여주기
-				System.out.println("이코노미 공실");
-				for (Room r: rvm.Search()) {
-					if(r.getType().equals("a"))
-					System.out.print(r.getRoomnum()+ " ");
-				}
-				System.out.println("\n");
-				System.out.println("비지니스 공실");
-				for (Room r: rvm.Search()) {
-					if(r.getType().equals("b"))
-					System.out.print(r.getRoomnum()+ " ");
-				}
-				System.out.println("\n");
-				System.out.println("퍼스트 공실");
-				for (Room r: rvm.Search()) {
-					if(r.getType().equals("c"))
-					System.out.print(r.getRoomnum()+ " ");
-				}
-				System.out.println("\n");
 				
+				// room테이블 타입에 따른 공실 보여주기
+				rvm.EmptyRoom();
 				
 				//예약
 				System.out.print("예약하실 호수를 입력하세요 >>> ");
@@ -90,6 +74,7 @@ public class ReservationInfo {
 				int reservedRoomNumber = sc.nextInt();
 				sc.nextLine();
 				rvm.checkOut(reservedRoomNumber);
+				next_page= false;
 				break;
 			
 			case 3:
@@ -101,18 +86,19 @@ public class ReservationInfo {
 					System.out.println(listRvo.getStart_date()+"\t"+listRvo.getEnd_date());
 				}// for END
 				System.out.println();
+				next_page= false;
 				break;
 			case 4:
 				//예약조회
 				rvm.userRoom(login_user_id);
+				next_page= false;
 				break;
 			}
+			if (next_page==true) {
+				
+				PayInfo payinfo = new PayInfo(login_user_id,pay_user_roomnum);
+			}
 			
-			
-		}
-		if (next_page==true) {
-			
-			PayInfo payinfo = new PayInfo(login_user_id,pay_user_roomnum);
 		}
 	
 	}
