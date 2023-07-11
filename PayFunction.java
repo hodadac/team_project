@@ -41,6 +41,17 @@ public class PayFunction {
 	      
 	  }//bonus end
 	
+	public boolean pay (int login_user_id, int roomnum, int paidmoney) {
+		int roomprice  = roomPrice(roomnum);
+		boolean moneycheck = false;
+		if (paidmoney >= roomprice) {
+			moneycheck = true;
+		}else {
+			moneycheck = false;
+		}
+		return moneycheck;
+	}
+	
 	
 	
 	public double userbonus (int login_user_id) {
